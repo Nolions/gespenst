@@ -24,7 +24,7 @@ Route::prefix("lse")->group(function () {
         LseController::class, 'lse'
     ]);
 
-//    Route::post("/", [
-//        LseController::class, 'reply'
-//    ]);
+    Route::post("/", [
+        LseController::class, 'reply'
+    ]);
 });

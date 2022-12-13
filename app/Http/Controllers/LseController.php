@@ -4,10 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Services\lse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class LseController extends BaseController
 {
+    /**
+     * @var lse 
+     */
+    private Lse $lseServ;
+
+    public function __construct(Lse $lseServ)
+    {
+        $this->lseServ = $lseServ;
+    }
+
     /**
      * lse問券
      *
@@ -17,12 +28,23 @@ class LseController extends BaseController
     public function lse(Lse $lseServ): JsonResponse
     {
         return response()->json(
-            $lseServ->questions()
+            $this->lseServ->questions()
         );
     }
 
-    public function reply(): JsonResponse
+    /**
+     * 填寫問券
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function reply(Request $request): JsonResponse
     {
-        return response()->json();
+        return response()->json(
+            $this->lseServ->reply(
+                $request->input('id'),
+                $request->input('answers'),
+            )
+        );
     }
 }
