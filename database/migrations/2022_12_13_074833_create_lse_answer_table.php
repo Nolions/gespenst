@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -13,15 +12,12 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('kolb_style', function (Blueprint $table) {
+        Schema::create('lse_answer', function (Blueprint $table) {
             $table->id();
             $table->string('user_id')->unique();
-            $table->integer('ce_score')->unsigned();
-            $table->integer('ro_score')->unsigned();
-            $table->integer('ac_score')->unsigned();
-            $table->integer('ae_score')->unsigned();
+            $table->integer('question_id')->unsigned();
+            $table->integer('ansOption_id')->unsigned();
             $table->dateTime('create_date')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('建立時間');
-            $table->dateTime('update_at')->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrentOnUpdate()->comment('更新時間');
         });
     }
 
@@ -32,6 +28,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('kolb_style');
+        Schema::dropIfExists('lse_answer');
     }
 };

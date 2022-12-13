@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Answer;
+use App\Models\LseAnswer;
 use App\Models\KolbStyle;
 use Illuminate\Database\Eloquent\Model;
 
@@ -80,7 +80,7 @@ class lse
 
     private function createAnswerModel(string $userId, int $questionId, int $ansOptionId): Model
     {
-        $model = new Answer();
+        $model = new LseAnswer();
         $model->user_id = $userId;
         $model->question_id = $questionId;
         $model->ansOption_id = $ansOptionId;
