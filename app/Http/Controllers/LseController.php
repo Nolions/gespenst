@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 class LseController extends BaseController
 {
     /**
-     * @var lse 
+     * @var lse
      */
     private Lse $lseServ;
 
