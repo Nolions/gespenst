@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -12,7 +13,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('lse_answer', function (Blueprint $table) {
+        Schema::create('lse_answers', function (Blueprint $table) {
             $table->id();
             $table->string('user_id')->unique();
             $table->integer('question_id')->unsigned();

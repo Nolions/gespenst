@@ -13,7 +13,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('kolb_style', function (Blueprint $table) {
+        Schema::create('kolb_styles', function (Blueprint $table) {
             $table->id();
             $table->string('user_id')->unique();
             $table->integer('ce_score')->unsigned();
