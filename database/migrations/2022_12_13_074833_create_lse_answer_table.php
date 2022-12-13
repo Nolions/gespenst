@@ -15,7 +15,7 @@ return new class extends Migration {
     {
         Schema::create('lse_answers', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->unique();
+            $table->string('user_id')->index();
             $table->integer('question_id')->unsigned();
             $table->integer('ansOption_id')->unsigned();
             $table->dateTime('create_date')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('建立時間');
