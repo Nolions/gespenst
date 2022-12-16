@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
-use App\Models\LseAnswer;
 use App\Models\KolbStyle;
+use App\Models\LseAnswer;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
-class lse
+class Lse
 {
+
     /**
      * 取得lse問券
      *
@@ -32,14 +34,14 @@ class lse
         $scoreAC = 0; // 抽象的概念
         $scoreAE = 0; // 主動的實驗
 
-//        DB::beginTransaction();
+        DB::beginTransaction();
         foreach ($answers as $key => $value) {
             // 儲存使用者LSE問卷答案
             $answer = $this->createAnswerModel($userId, $key, $value);
-//            if (!$answer->save()) {
-//                DB::rollBack();
-            // TODO Exception
-//            }
+            if (!$answer->save()) {
+                DB::rollBack();
+//             TODO Exception
+            }
 
             // 計算Kolb Learn Style各個面向得分
             $score = lse()->score($value);
@@ -61,13 +63,12 @@ class lse
 
         // 儲存Kolb Learn Style風格
         $kolbStyleModel = $this->createKolbStyleModel($userId, $scoreCE, $scoreRO, $scoreAC, $scoreAE);
-//        if (!$kolbStyleModel->save()) {
-//            DB::rollBack();
-        // TODO Exception
-//        }
+        if (!$kolbStyleModel->save()) {
+            DB::rollBack();
+            // TODO Exception
+        }
 
-//        DB::commit();
-
+        DB::commit();
 
         return [
             'CE' => $scoreCE,

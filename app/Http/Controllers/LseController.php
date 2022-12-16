@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\lse;
+use App\Services\Lse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 class LseController extends BaseController
 {
     /**
-     * @var lse
+     * @var Lse
      */
     private Lse $lseServ;
 
@@ -22,7 +22,7 @@ class LseController extends BaseController
     /**
      * lse問券
      *
-     * @param lse $lseServ
+     * @param Lse $lseServ
      * @return JsonResponse
      */
     public function lse(Lse $lseServ): JsonResponse
