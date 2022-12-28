@@ -29,14 +29,8 @@ class LSE
     public function __construct()
     {
         $this->options = json_decode(File::get(storage_path('data/lse_options.json')), true);
-        $questions = json_decode(File::get(storage_path('data/lse_questions.json')), true);
+        $this->questions = json_decode(File::get(storage_path('data/lse_questions.json')), true);
         $kolbStyles = json_decode(File::get(storage_path('data/kolb_style.json')), true);
-
-        foreach ($questions as $question) {
-            $id = $question['id'];
-            unset($question['id']);
-            $this->questions[$id] = $question;
-        }
 
         foreach ($kolbStyles as $kolbStyle) {
             $this->kolbStyle[$kolbStyle['id']] = $kolbStyle;
@@ -73,8 +67,7 @@ class LSE
         }
 
         for ($i = 0; $i < count($this->questions); $i++) {
-            unset($questions[$i]['type']);
-            $questions[$i]['option'] = $this->options;
+            $questions[$i]['option'] = $options;
         }
 
         return $questions;
