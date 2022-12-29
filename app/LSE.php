@@ -81,7 +81,7 @@ class LSE
      */
     public function questionStyle(int $questionId): array
     {
-        $styleId = $this->questions["{$questionId}"]['type'];
+        $styleId = $this->questions[$questionId - 1]['type'];
 
         return $this->kolbStyle[$styleId];
     }

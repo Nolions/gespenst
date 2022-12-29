@@ -4,11 +4,18 @@ namespace App\Services;
 
 use App\Models\KolbStyle;
 use App\Models\LseAnswer;
+use App\Repositories\KolbStyleRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Lse
 {
+    private KolbStyleRepository $kolbStyleRepo;
+
+    public function __construct(KolbStyleRepository $kolbStyleRepo)
+    {
+        $this->kolbStyleRepo = $kolbStyleRepo;
+    }
 
     /**
      * 取得lse問券
@@ -76,6 +83,17 @@ class Lse
             'AC' => $scoreAC,
             'AE' => $scoreAE,
         ];
+    }
+
+    /**
+     * 取得會員學習風格評估結果
+     *
+     * @param string $userId
+     * @return array
+     */
+    public function getUserStyle(string $userId): array
+    {
+        return $this->kolbStyleRepo->getStyleByUser($userId)->toArray();
     }
 
 

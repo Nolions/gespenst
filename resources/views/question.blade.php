@@ -17,8 +17,8 @@
             @foreach($question['option'] as $i => $option)
                 <div>
                     <input type="radio" id="que{{$question['id']}}_op{{$i}}"
-                           name="que{{$question['id']}}"
-                           value="que{{$question['id']}}"
+                           name="{{$question['id']}}"
+                           value="{{$option['id']}}"
                            @if($i == 0) checked @endif >
                     <label for="que{{$question['id']}}_op{{$i}}">{{$option['option']}}</label>
                 </div>

@@ -25,3 +25,7 @@ Route::get('/lse', [
 Route::post('/reply', [
     ViewController::class, 'reply'
 ]);
+
+Route::get('/style', [
+    ViewController::class, 'style'
+]);
