@@ -204,4 +204,9 @@ $RECYCLE.BIN/
 
 .env
 
+node_modules/
+
+public/build
+
 # End of https://www.toptal.com/developers/gitignore/api/phpstorm,visualstudiocode,composer,macos,windows
+
