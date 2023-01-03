@@ -64,7 +64,7 @@ class LseController extends BaseController
         $username = Auth::user()->username;
 
         return view('kolbStyleResult', [
-            'kolbStyleScores' => $this->lseServ->getUserStyle($username)
+            'styles' => $this->lseServ->getUserStyle($username)
         ]);
     }
 }
