@@ -25,7 +25,7 @@ Route::post('/login', [
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', function () {
-        return view('welcome');
+        return view('index');
     })->name('index');
 
     Route::get('/logout', [
