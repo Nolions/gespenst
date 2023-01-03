@@ -14,18 +14,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::post('/login', [
+    ViewController::class, 'login'
+]);
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('index');
+
+    Route::get('/logout', [
+        ViewController::class, 'logout'
+    ])->middleware('auth')->name('logout');
+
+    Route::get('/lse', [
+        ViewController::class, 'lse'
+    ])->middleware('auth');
+
+    Route::post('/reply', [
+        ViewController::class, 'reply'
+    ])->middleware('auth');
+
+    Route::get('/style', [
+        ViewController::class, 'style'
+    ])->middleware('auth');
 });
-
-Route::get('/lse', [
-    ViewController::class, 'lse'
-]);
-
-Route::post('/reply', [
-    ViewController::class, 'reply'
-]);
-
-Route::get('/style', [
-    ViewController::class, 'style'
-]);

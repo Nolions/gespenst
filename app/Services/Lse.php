@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class Lse
 {
+    /**
+     * @var KolbStyleRepository
+     */
     private KolbStyleRepository $kolbStyleRepo;
 
     public function __construct(KolbStyleRepository $kolbStyleRepo)
@@ -93,10 +96,21 @@ class Lse
      */
     public function getUserStyle(string $userId): array
     {
-        return $this->kolbStyleRepo->getStyleByUser($userId)->toArray();
+        $styles = $this->kolbStyleRepo->getStyleByUser($userId);
+        if (is_null($styles)) {
+            return [];
+        }
+        return $styles->toArray();
     }
 
-
+    /**
+     * 建立LseAnswer Model
+     *
+     * @param string $userId
+     * @param int $questionId
+     * @param int $ansOptionId
+     * @return Model
+     */
     private function createAnswerModel(string $userId, int $questionId, int $ansOptionId): Model
     {
         $model = new LseAnswer();
@@ -107,6 +121,16 @@ class Lse
         return $model;
     }
 
+    /**
+     * 建立KolbStyle Model
+     *
+     * @param string $userId
+     * @param int $scoreCE
+     * @param int $scoreRO
+     * @param int $scoreAC
+     * @param int $scoreAE
+     * @return Model
+     */
     private function createKolbStyleModel(string $userId, int $scoreCE, int $scoreRO, int $scoreAC, int $scoreAE): Model
     {
         $model = new KolbStyle();

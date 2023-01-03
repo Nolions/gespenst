@@ -14,7 +14,7 @@ class KolbStyleRepository
         $this->model = $model;
     }
 
-    public function getStyleByUser(string $userId): model
+    public function getStyleByUser(string $userId): ?model
     {
         return $this->model->newQuery()
             ->select('ce_score', 'ro_score', 'ac_score', 'ae_score')

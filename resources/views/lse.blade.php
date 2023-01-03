@@ -4,6 +4,7 @@
         <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
             <form action="{{ url("/reply") }}" method="post">
                 {{ csrf_field() }}
+                <input type="hidden" name="username" value="{{Auth::user()->username}}">
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item">
                         @include('lse_stage', ['title' => '第一部分：具體的經驗', 'filterType'=> 1,'questions' => $questions])
