@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LseController;
+use App\Http\Controllers\Api\LseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

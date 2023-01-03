@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Services\Lse;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 
 class LseController extends BaseController
 {
@@ -14,37 +15,56 @@ class LseController extends BaseController
      */
     private Lse $lseServ;
 
+
     public function __construct(Lse $lseServ)
     {
         $this->lseServ = $lseServ;
     }
 
     /**
-     * lse問券
+     * 取得LSE問卷
      *
-     * @param Lse $lseServ
-     * @return JsonResponse
+     * @return View
      */
-    public function lse(Lse $lseServ): JsonResponse
+    public function lse(): View
     {
-        return response()->json(
-            $this->lseServ->questions()
-        );
+        return view('lse', ['questions' => $this->lseServ->questions()]);
     }
 
     /**
-     * 填寫問券
+     * 填寫問卷
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return View
      */
-    public function reply(Request $request): JsonResponse
+    public function reply(Request $request): View
     {
-        return response()->json(
-            $this->lseServ->reply(
-                $request->input('id'),
-                $request->input('answers'),
-            )
-        );
+        $username = Auth::user()->username;
+
+        // 檢查學習風格評估是否存在
+        $scores = $this->lseServ->getUserStyle($username);
+        if (empty($scores)) {
+            $answers = $request->post();
+            unset($answers['_token'], $answers['username']);
+
+            $scores = $this->lseServ->reply($username, $answers);
+        }
+
+        return view('kolbStyleResult', ['kolbStyleScores' => $scores]);
+    }
+
+    /**
+     * 取得使用者學習風格數據
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function style(Request $request): View
+    {
+        $username = Auth::user()->username;
+
+        return view('kolbStyleResult', [
+            'kolbStyleScores' => $this->lseServ->getUserStyle($username)
+        ]);
     }
 }

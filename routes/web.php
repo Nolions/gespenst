@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ViewController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,7 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/login', [
-    ViewController::class, 'login'
+    AuthController::class, 'login'
 ]);
 
 Route::group(['middleware' => ['auth']], function () {
@@ -28,18 +29,18 @@ Route::group(['middleware' => ['auth']], function () {
     })->name('index');
 
     Route::get('/logout', [
-        ViewController::class, 'logout'
+        AuthController::class, 'logout'
     ])->middleware('auth')->name('logout');
 
     Route::get('/lse', [
-        ViewController::class, 'lse'
+        LseController::class, 'lse'
     ])->middleware('auth');
 
     Route::post('/reply', [
-        ViewController::class, 'reply'
+        LseController::class, 'reply'
     ])->middleware('auth');
 
     Route::get('/style', [
-        ViewController::class, 'style'
+        LseController::class, 'style'
     ])->middleware('auth');
 });
