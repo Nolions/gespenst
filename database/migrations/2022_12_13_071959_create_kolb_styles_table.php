@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->integer('ro_score')->unsigned();
             $table->integer('ac_score')->unsigned();
             $table->integer('ae_score')->unsigned();
-            $table->dateTime('create_date')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('建立時間');
+            $table->dateTime('create_at')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('建立時間');
             $table->dateTime('update_at')->default(DB::raw('CURRENT_TIMESTAMP'))->useCurrentOnUpdate()->comment('更新時間');
         });
     }

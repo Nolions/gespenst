@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username')->unique();
-            $table->dateTime('create_date')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('建立時間');
+            $table->dateTime('create_at')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('建立時間');
         });
     }
 

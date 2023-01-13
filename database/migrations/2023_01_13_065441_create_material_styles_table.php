@@ -5,7 +5,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -13,12 +14,12 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('lse_answers', function (Blueprint $table) {
-            $table->id();
-            $table->string('user_id')->index();
-            $table->integer('question_id')->unsigned();
-            $table->integer('ansOption_id')->unsigned();
+        Schema::create('material_styles', function (Blueprint $table) {
+            $table->unsignedBigInteger('material_id');
+            $table->enum('kolb_style', ['ce', 'ro', 'ac', 'ae']);
             $table->dateTime('create_at')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('建立時間');
+
+            $table->foreign('material_id')->references('id')->on('materials');
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('lse_answer');
+        Schema::dropIfExists('material_styles');
     }
 };
