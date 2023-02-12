@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class MaterialRepository
 {
+    /**
+     * @var Material
+     */
     private Material $model;
 
     public function __construct(Material $model)

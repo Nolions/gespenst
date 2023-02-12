@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Services\Material;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class MaterialController extends Controller
 {
+    /**
+     * @var Material
+     */
     private Material $materialServ;
 
     public function __construct(Material $materialServ)
@@ -14,6 +18,12 @@ class MaterialController extends Controller
         $this->materialServ = $materialServ;
     }
 
+    /**
+     * 建立教材
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function create(Request $request)
     {
         $data = $this->materialServ->create(
@@ -27,6 +37,12 @@ class MaterialController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * 教材列表
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function list(Request $request)
     {
         $data = $this->materialServ->list();

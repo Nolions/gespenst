@@ -11,8 +11,14 @@ use Illuminate\Support\Facades\DB;
 
 class Material
 {
+    /**
+     * @var Tag
+     */
     private Tag $tagServ;
 
+    /**
+     * @var MaterialRepository
+     */
     private MaterialRepository $materialRepo;
 
     public function __construct(Tag $tagServ, MaterialRepository $materialRepo)
@@ -87,6 +93,11 @@ class Material
         return $data;
     }
 
+    /**
+     * 教材列表
+     *
+     * @return array
+     */
     public function list(): array
     {
         $data = $this->materialRepo->list();

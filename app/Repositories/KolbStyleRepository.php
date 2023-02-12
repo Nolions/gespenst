@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class KolbStyleRepository
 {
+    /**
+     * @var KolbStyle
+     */
     private KolbStyle $model;
 
     public function __construct(KolbStyle $model)
@@ -14,6 +17,12 @@ class KolbStyleRepository
         $this->model = $model;
     }
 
+    /**
+     * 取得會員學習風格
+     *
+     * @param string $userId
+     * @return Model|null
+     */
     public function getStyleByUser(string $userId): ?model
     {
         return $this->model->newQuery()

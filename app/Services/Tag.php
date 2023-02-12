@@ -8,13 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag
 {
+    /**
+     * @var TagRepository
+     */
     private TagRepository $tagRepo;
+
 
     public function __construct(TagRepository $tagRepo)
     {
         $this->tagRepo = $tagRepo;
     }
 
+    /**
+     * 建立標籤
+     * ==============
+     * 當標籤不存在時則建立新標籤
+     *
+     * @param string $name
+     * @return Model
+     */
     function Create(string $name): Model
     {
         $tag = $this->tagRepo->findByName($name);
