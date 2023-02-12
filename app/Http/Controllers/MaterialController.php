@@ -26,4 +26,11 @@ class MaterialController extends Controller
 
         return response()->json($data);
     }
+
+    public function list(Request $request)
+    {
+        $data = $this->materialServ->list();
+
+        return response()->json($data);
+    }
 }

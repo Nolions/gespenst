@@ -51,3 +51,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::post('/material', [
     MaterialController::class, 'create'
 ]);
+
+Route::get('/material/list', [
+    MaterialController::class, 'list'
+]);

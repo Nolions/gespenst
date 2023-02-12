@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Material as MaterialModel;
 use App\Models\MaterialStyle;
 use App\Models\MaterialTag;
+use App\Repositories\MaterialRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -12,9 +13,12 @@ class Material
 {
     private Tag $tagServ;
 
-    public function __construct(Tag $tagServ)
+    private MaterialRepository $materialRepo;
+
+    public function __construct(Tag $tagServ, MaterialRepository $materialRepo)
     {
         $this->tagServ = $tagServ;
+        $this->materialRepo = $materialRepo;
     }
 
     /**
@@ -81,5 +85,11 @@ class Material
         $data['tags'] = $tagArr;
 
         return $data;
+    }
+
+    public function list(): array
+    {
+        $data = $this->materialRepo->list();
+        return $data->toArray();
     }
 }
