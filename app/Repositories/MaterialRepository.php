@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Material;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class MaterialRepository
@@ -38,15 +39,6 @@ class MaterialRepository
                 'materials.title',
                 'materials.resource_url',
                 'materials.describe',
-                'material_styles.kolb_style',
-                'MTS.tag_id',
-                'MTS.name'
-            )
-            ->join('material_styles', 'material_styles.material_id', '=', 'materials.id')
-            ->join(DB::raw('(SELECT material_id, tag_id, name FROM material_tags INNER JOIN tags ON (material_tags.tag_id = tags.id))  MTS'),
-                function ($join) {
-                    $join->on('MTS.material_id', '=', 'materials.id');
-                }
             )
             ->get();
     }
