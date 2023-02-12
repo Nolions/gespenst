@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LseController;
+use App\Http\Controllers\MaterialController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,4 +44,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/style', [
         LseController::class, 'style'
     ])->middleware('auth');
+
+        //->middleware('auth');
 });
+
+Route::post('/material', [
+    MaterialController::class, 'create'
+]);
