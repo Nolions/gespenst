@@ -49,4 +49,17 @@ class MaterialController extends Controller
 
         return response()->json($data);
     }
+
+    /**
+     * 取得教材詳細資訊
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function get(int $id)
+    {
+        $data = $this->materialServ->get($id);
+
+        return response()->json($data);
+    }
 }

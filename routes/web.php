@@ -55,3 +55,8 @@ Route::post('/material', [
 Route::get('/material/list', [
     MaterialController::class, 'list'
 ]);
+
+
+Route::get('/material/{id}', [
+    MaterialController::class, 'get'
+]);

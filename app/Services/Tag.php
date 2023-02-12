@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Tag as TagModel;
 use App\Repositories\TagRepository;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Collection\Collection;
 
 class Tag
 {
@@ -38,5 +39,10 @@ class Tag
         }
 
         return $tag;
+    }
+
+    public function all():array
+    {
+        return $this->tagRepo->all()->toArray();
     }
 }

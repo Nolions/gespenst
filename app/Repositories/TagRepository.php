@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Tag;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class TagRepository
@@ -23,11 +24,18 @@ class TagRepository
      * @param string $name
      * @return Model|null
      */
-    public function findByName(string $name):?Model
+    public function findByName(string $name): ?Model
     {
         return $this->model->newQuery()
             ->select("id", "name")
             ->where('name', $name)
             ->first();
+    }
+
+    public function all(): Collection
+    {
+        return $this->model->newQuery()
+            ->select('id', 'name')
+            ->get();
     }
 }

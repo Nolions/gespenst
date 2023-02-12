@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Models\Material;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class MaterialRepository
 {
@@ -41,5 +40,24 @@ class MaterialRepository
                 'materials.describe',
             )
             ->get();
+    }
+
+    /**
+     * 取得教材
+     *
+     * @param int $id
+     * @return Model|null
+     */
+    public function get(int $id): ?Model
+    {
+        return $this->model->newQuery()
+            ->select(
+                'materials.id',
+                'materials.title',
+                'materials.resource_url',
+                'materials.describe',
+            )
+            ->where("materials.id", $id)
+            ->first();
     }
 }

@@ -6,6 +6,8 @@ use App\Models\Material as MaterialModel;
 use App\Models\MaterialStyle;
 use App\Models\MaterialTag;
 use App\Repositories\MaterialRepository;
+use App\Repositories\MaterialStyleRepository;
+use App\Repositories\MaterialTagRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -21,10 +23,24 @@ class Material
      */
     private MaterialRepository $materialRepo;
 
-    public function __construct(Tag $tagServ, MaterialRepository $materialRepo)
+    /**
+     * @var MaterialTagRepository
+     */
+    private MaterialTagRepository $materialTagRepo;
+
+    private MaterialStyleRepository $materialStyleRepo;
+
+    public function __construct(
+        Tag $tagServ,
+        MaterialRepository $materialRepo,
+        MaterialTagRepository $materialTagRepo,
+        MaterialStyleRepository $materialStyleRepo
+    )
     {
         $this->tagServ = $tagServ;
         $this->materialRepo = $materialRepo;
+        $this->materialTagRepo = $materialTagRepo;
+        $this->materialStyleRepo = $materialStyleRepo;
     }
 
     /**
@@ -102,5 +118,30 @@ class Material
     {
         $data = $this->materialRepo->list();
         return $data->toArray();
+    }
+
+    /**
+     * 取得教材詳細資料
+     *
+     * @param int $id
+     * @return array
+     */
+    public function get(int $id): array
+    {
+        $material = $this->materialRepo->get($id);
+        if ($material == null) {
+            return [];
+        }
+
+        $data = $material->toArray();
+        $data['tags'] = $this->materialTagRepo->getMaterialTags($id)->toArray();
+        $data['styles'] = $this->materialStyleRepo->getMaterialStyles($id)->toArray();
+
+        return $data;
+    }
+
+    public function allMaterialTags(): array
+    {
+        return $this->tagServ->all();
     }
 }
