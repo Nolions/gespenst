@@ -6,6 +6,7 @@ use App\Services\Lse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class LseController extends BaseController
@@ -57,11 +58,16 @@ class LseController extends BaseController
      * 取得使用者學習風格數據
      *
      * @param Request $request
-     * @return View
+     * @return View|Redirector
      */
-    public function style(Request $request): View
+    public function style(Request $request): View|Redirector
     {
         $username = Auth::user()->username;
+        $styles = $this->lseServ->getUserStyle($username);
+
+        if (count($styles) == 0) {
+            return redirect('/lse');
+        }
 
         return view('kolbStyleResult', [
             'styles' => $this->lseServ->getUserStyle($username)
