@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\Material;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -41,25 +42,28 @@ class MaterialController extends Controller
      * 教材列表
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return View
      */
-    public function list(Request $request)
+    public function list(Request $request): View
     {
-        $data = $this->materialServ->list();
+//        $data = $this->materialServ->list();
 
-        return response()->json($data);
+//        return view('materials', 'materials' => $data)
+        return view('materials', [
+            'materials' => $this->materialServ->list()
+        ]);
     }
 
     /**
      * 取得教材詳細資訊
      *
      * @param int $id
-     * @return JsonResponse
+     * @return View
      */
-    public function get(int $id)
+    public function get(int $id): View
     {
-        $data = $this->materialServ->get($id);
-
-        return response()->json($data);
+        return view('material', [
+            'material' => $this->materialServ->get($id)
+        ]);
     }
 }
