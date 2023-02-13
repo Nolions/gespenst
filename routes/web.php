@@ -48,14 +48,13 @@ Route::group(['middleware' => ['auth']], function () {
         //->middleware('auth');
 });
 
-Route::post('/material', [
-    MaterialController::class, 'create'
-]);
-
 Route::get('/material/list', [
     MaterialController::class, 'list'
 ]);
 
+Route::post('/material', [
+    MaterialController::class, 'create'
+]);
 
 Route::get('/material/{id}', [
     MaterialController::class, 'get'
