@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Services\Material;
+use App\Services\Tag;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use function GuzzleHttp\Promise\all;
 
 class MaterialController extends Controller
 {
@@ -14,28 +18,15 @@ class MaterialController extends Controller
      */
     private Material $materialServ;
 
-    public function __construct(Material $materialServ)
+    /**
+     * @var Tag
+     */
+    private Tag $tagServ;
+
+    public function __construct(Material $materialServ, Tag $tagServ)
     {
         $this->materialServ = $materialServ;
-    }
-
-    /**
-     * 建立教材
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function create(Request $request)
-    {
-        $data = $this->materialServ->create(
-            $request->input('title'),
-            $request->input('styles'),
-            $request->input('tag'),
-            $request->input('describe'),
-            $request->input('resourceUrl'),
-        );
-
-        return response()->json($data);
+        $this->tagServ = $tagServ;
     }
 
     /**
@@ -46,9 +37,6 @@ class MaterialController extends Controller
      */
     public function list(Request $request): View
     {
-//        $data = $this->materialServ->list();
-
-//        return view('materials', 'materials' => $data)
         return view('materials', [
             'materials' => $this->materialServ->list()
         ]);
@@ -65,5 +53,36 @@ class MaterialController extends Controller
         return view('material', [
             'material' => $this->materialServ->get($id)
         ]);
+    }
+
+    /**
+     * 建立教材(靜態頁面)
+     *
+     * @return View
+     */
+    public function new(): View
+    {
+        return view('materialCreate', [
+            'tags' =>  $this->tagServ->all()
+        ]);
+    }
+
+    /**
+     * 建立教材
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function create(Request $request): RedirectResponse
+    {
+        $data = $this->materialServ->create(
+            $request->input('title'),
+            $request->input('styles'),
+            $request->input('tags'),
+            $request->input('describe'),
+            $request->input('resourceUrl'),
+        );
+
+        return Redirect::to("/material/{$data['id']}");
     }
 }

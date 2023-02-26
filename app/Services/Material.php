@@ -31,9 +31,9 @@ class Material
     private MaterialStyleRepository $materialStyleRepo;
 
     public function __construct(
-        Tag $tagServ,
-        MaterialRepository $materialRepo,
-        MaterialTagRepository $materialTagRepo,
+        Tag                     $tagServ,
+        MaterialRepository      $materialRepo,
+        MaterialTagRepository   $materialTagRepo,
         MaterialStyleRepository $materialStyleRepo
     )
     {
@@ -47,53 +47,55 @@ class Material
      * 建立教材
      *
      * @param string $title
-     * @param array $styles
-     * @param array $tags
+     * @param array|null $styles
+     * @param array|null $tags
      * @param string|null $describe
      * @param string|null $resourceUrl
      * @return array
      */
     public function create(
         string  $title,
-        array   $styles = [],
-        array   $tags = [],
-        ?string $describe = null,
-        ?string $resourceUrl = null,
+        ?array  $styles = [],
+        ?array  $tags = [],
+        ?string $describe = "",
+        ?string $resourceUrl = "",
     ): array
     {
         $styleArr = [];
         $tagArr = [];
 
+        $material = new MaterialModel();
         DB::beginTransaction();
         try {
-            $material = new MaterialModel();
             $material->title = $title;
             $material->describe = $describe;
             $material->resource_url = $resourceUrl;
             $material->save();
 
-            foreach ($tags as $tag) {
-                $tagModel = $this->tagServ->Create($tag);
-                $materialTag = new MaterialTag();
-                $materialTag->material_id = $material->id;
-                $materialTag->tag_id = $tagModel->id;
-                $materialTag->save();
+            if ($tags != null) {
+                foreach ($tags as $tag) {
+                    $materialTag = new MaterialTag();
+                    $materialTag->material_id = $material->id;
+                    $materialTag->tag_id = $tag;
+                    $materialTag->save();
 
-                $tagArr[] = [
-                    'id' => $tagModel->id,
-                    'name' => $tagModel->name,
-                ];
+                    $tagArr[] = [
+                        'id' => $tag,
+                    ];
+                }
             }
 
-            foreach ($styles as $style) {
-                $materialStyle = new MaterialStyle();
-                $materialStyle->material_id = $material->id;
-                $materialStyle->kolb_style = $style;
-                $materialStyle->save();
+            if ($styles != null) {
+                foreach ($styles as $style) {
+                    $materialStyle = new MaterialStyle();
+                    $materialStyle->material_id = $material->id;
+                    $materialStyle->kolb_style = $style;
+                    $materialStyle->save();
 
-                $styleArr[] = [
-                    'name' => $style,
-                ];
+                    $styleArr[] = [
+                        'name' => $style,
+                    ];
+                }
             }
 
             DB::commit();

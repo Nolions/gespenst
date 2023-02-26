@@ -41,6 +41,11 @@ class Tag
         return $tag;
     }
 
+    /**
+     * 取得所有標籤
+     *
+     * @return array
+     */
     public function all():array
     {
         return $this->tagRepo->all()->toArray();

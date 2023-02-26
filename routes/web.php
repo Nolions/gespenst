@@ -45,17 +45,23 @@ Route::group(['middleware' => ['auth']], function () {
         LseController::class, 'style'
     ])->middleware('auth');
 
-        //->middleware('auth');
+    Route::group(['prefix' => '/material',], function () {
+        Route::get('/list', [
+            MaterialController::class, 'list'
+        ]);
+
+        Route::get('/', [
+            MaterialController::class, 'new'
+        ]);
+
+        Route::post('/', [
+            MaterialController::class, 'create'
+        ]);
+
+        Route::get('/{id}', [
+            MaterialController::class, 'get'
+        ]);
+    });
 });
 
-Route::get('/material/list', [
-    MaterialController::class, 'list'
-]);
 
-Route::post('/material', [
-    MaterialController::class, 'create'
-]);
-
-Route::get('/material/{id}', [
-    MaterialController::class, 'get'
-]);
