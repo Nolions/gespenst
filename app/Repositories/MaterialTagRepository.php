@@ -31,4 +31,17 @@ class MaterialTagRepository
             ->join('tags', 'tags.id', '=', 'material_tags.tag_id')
             ->get();
     }
+
+    /**
+     * 移除教材相關標籤
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function removeByMaterialId(int $id): bool
+    {
+        return $this->model->newQuery()
+            ->where('material_id', $id)
+            ->delete();
+    }
 }

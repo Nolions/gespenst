@@ -61,6 +61,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/{id}', [
             MaterialController::class, 'get'
         ]);
+
+        Route::post('/{id}', [
+            MaterialController::class, 'edit'
+        ]);
     });
 });
 

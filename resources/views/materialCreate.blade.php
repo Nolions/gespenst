@@ -67,9 +67,11 @@
 
                     <button class="btn btn-primary btn-lg" type="submit">Save</button>
                 </form>
+                <button class="btn btn-danger btn-lg" onclick="document.location.href='{{url("/material/list")}}';">
+                    Cancel
+                </button>
             </div>
         </div>
 
-    </div>
     </div>
 @endsection

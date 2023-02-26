@@ -30,4 +30,17 @@ class MaterialStyleRepository
             ->where('material_id', $id)
             ->get();
     }
+
+    /**
+     * 移除教材相關風格
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function removeByMaterialId(int $id): bool
+    {
+        return $this->model->newQuery()
+            ->where('material_id', $id)
+            ->delete();
+    }
 }

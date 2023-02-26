@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Services\Material;
 use App\Services\Tag;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use function GuzzleHttp\Promise\all;
 
 class MaterialController extends Controller
 {
@@ -50,9 +48,37 @@ class MaterialController extends Controller
      */
     public function get(int $id): View
     {
+        $material = $this->materialServ->get($id);
+        $tags = [];
+        foreach ($material['tags'] as $tag) {
+            $tags[] = $tag['id'];
+        }
+        $material['tags'] = $tags;
+
+        $styles = [];
+        foreach ($material['styles'] as $style) {
+            $styles[] = $style['kolb_style'];
+        }
+        $material['styles'] = $styles;
+
         return view('material', [
-            'material' => $this->materialServ->get($id)
+            'material' => $material,
+            'tags' => $this->tagServ->all()
         ]);
+    }
+
+    /**
+     * 編輯教材
+     *
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function edit(Request $request, int $id): RedirectResponse
+    {
+        $this->materialServ->edit($id, $request->all());
+
+        return Redirect::to("/material/{$id}");
     }
 
     /**
@@ -63,7 +89,7 @@ class MaterialController extends Controller
     public function new(): View
     {
         return view('materialCreate', [
-            'tags' =>  $this->tagServ->all()
+            'tags' => $this->tagServ->all()
         ]);
     }
 

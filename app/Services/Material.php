@@ -142,8 +142,54 @@ class Material
         return $data;
     }
 
-    public function allMaterialTags(): array
+    /**
+     * 編輯教材
+     *
+     * @param int $id
+     * @param array $param
+     * @return bool
+     */
+    public function edit(int $id, array $param): bool
     {
-        return $this->tagServ->all();
+        DB::beginTransaction();
+        try {
+            $material = $this->materialRepo->get($id);
+            $material->title = $param['title'];
+            $material->resource_url = $param['resource_url'];
+            $material->describe = $param['describe'];
+            $material->save();
+
+            $this->materialStyleRepo->removeByMaterialId($id);
+
+
+            if (array_key_exists('styles', $param)) {
+                foreach ($param['styles'] as $style) {
+                    var_dump($style);
+                    $materialStyle = new MaterialStyle();
+                    $materialStyle->material_id = $material->id;
+                    $materialStyle->kolb_style = $style;
+                    var_dump($materialStyle->save());
+                }
+            }
+
+
+            $this->materialTagRepo->removeByMaterialId($id);
+            if (array_key_exists('tags', $param)) {
+                foreach ($param['tags'] as $tag) {
+                    $materialTag = new MaterialTag();
+                    $materialTag->material_id = $material->id;
+                    $materialTag->tag_id = $tag;
+                    $materialTag->save();
+                }
+            }
+
+            DB::commit();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            DB::rollback();
+            return false;
+        }
+
+        return true;
     }
 }
