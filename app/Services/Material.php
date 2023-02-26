@@ -118,7 +118,12 @@ class Material
      */
     public function list(): array
     {
-        $data = $this->materialRepo->list();
+        $data = collect($this->materialRepo->list())->map(function ($material) {
+            $data = $material->toArray();
+            $data['tags'] = $material->tags->toArray();
+            $data['styles'] = $material->styles->toArray();
+            return $data;
+        });
         return $data->toArray();
     }
 
