@@ -50,6 +50,10 @@ Route::group(['middleware' => ['auth']], function () {
             MaterialController::class, 'list'
         ]);
 
+        Route::get('/recommend', [
+            MaterialController::class, 'recommend'
+        ]);
+
         Route::get('/', [
             MaterialController::class, 'new'
         ]);
@@ -65,6 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/{id}', [
             MaterialController::class, 'edit'
         ]);
+
     });
 });
 

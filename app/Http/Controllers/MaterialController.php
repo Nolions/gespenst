@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Lse;
 use App\Services\Material;
 use App\Services\Tag;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class MaterialController extends Controller
@@ -21,10 +23,16 @@ class MaterialController extends Controller
      */
     private Tag $tagServ;
 
-    public function __construct(Material $materialServ, Tag $tagServ)
+    /**
+     * @var Lse
+     */
+    private Lse $lseServ;
+
+    public function __construct(Material $materialServ, Tag $tagServ, Lse $lseServ)
     {
         $this->materialServ = $materialServ;
         $this->tagServ = $tagServ;
+        $this->lseServ = $lseServ;
     }
 
     /**
@@ -110,5 +118,19 @@ class MaterialController extends Controller
         );
 
         return Redirect::to("/material/{$data['id']}");
+    }
+
+    public function recommend(Request $request): View
+    {
+        $styles = $this->lseServ->getUserStyle(Auth::user()->username);
+        $style = array_search(12, $styles);
+        $style = str_replace('_score', '', $style);
+
+        $tag = $request->input('tag');
+        return view('recommend', [
+            'selected' => $tag,
+            'tags' => $this->tagServ->all(),
+            'materials' => $this->materialServ->randomList($tag, $style)
+        ]);
     }
 }

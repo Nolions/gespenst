@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Material;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -59,5 +60,41 @@ class MaterialRepository
             )
             ->where("materials.id", $id)
             ->first();
+    }
+
+    public function randomCount(?int $tagId = 0, ?string $style = null): int
+    {
+        return $this->randomBuilder($tagId, $style)->count();
+    }
+
+    public function randomList(int $offset, int $limit, ?int $tagId = 0, ?string $style = null): Collection
+    {
+        return $this->randomBuilder($tagId, $style)
+            ->select('materials.id', 'materials.title', 'materials.resource_url', 'materials.describe')
+            ->limit($limit)
+            ->offset($offset)
+            ->get();
+    }
+
+    /**
+     *
+     *
+     * @param int|null $tagId
+     * @param string|null $style
+     * @return Builder
+     */
+    public function randomBuilder(?int $tagId, ?string $style): Builder
+    {
+        $builder = $this->model->newQuery();
+        if ($tagId > 0) {
+            $builder->join('material_tags', 'material_tags.material_id', '=', 'materials.id')
+                ->where('material_tags.tag_id', $tagId);
+        }
+
+        if ($style != null) {
+            $builder->join('material_styles', 'material_styles.material_id', '=', 'materials.id')
+                ->where('material_styles.kolb_style', $style);
+        }
+        return $builder;
     }
 }

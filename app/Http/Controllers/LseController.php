@@ -16,7 +16,6 @@ class LseController extends BaseController
      */
     private Lse $lseServ;
 
-
     public function __construct(Lse $lseServ)
     {
         $this->lseServ = $lseServ;

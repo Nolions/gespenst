@@ -197,4 +197,27 @@ class Material
 
         return true;
     }
+
+    /**
+     * 隨機取得教材
+     *
+     * @param int|null $tagId
+     * @param string|null $style
+     * @return array
+     */
+    public function randomList(?int $tagId = 0, ?string $style = null): array
+    {
+        $limit = 10;
+        $count = $this->materialRepo->randomCount($tagId, $style);
+        $offset = rand(0, $count - $limit);
+
+        $data = collect($this->materialRepo->randomList($offset, $limit, $tagId, $style))->map(function ($material) {
+            $data = $material->toArray();
+            $data['tags'] = $material->tags->toArray();
+            $data['styles'] = $material->styles->toArray();
+            return $data;
+        });
+
+        return $data->toArray();
+    }
 }
