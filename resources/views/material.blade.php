@@ -71,10 +71,9 @@
                     <hr class="my-4">
 
                     <button class="btn btn-primary btn-lg" type="submit">Save</button>
+                    <a class="btn btn-danger btn-lg" href="{{url("/material/list")}}" role="button">Cancel</a>
                 </form>
-                <button class="btn btn-danger btn-lg" onclick="document.location.href='{{url("/material/list")}}';">
-                    Cancel
-                </button>
+
             </div>
         </div>
 

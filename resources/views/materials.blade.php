@@ -6,6 +6,9 @@
         </div>
 
         <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+
+            <a class="btn btn-primary" href="{{url("/material")}}" role="button">建立教材</a>
+
             <table class="table">
                 <thead>
                 <tr>

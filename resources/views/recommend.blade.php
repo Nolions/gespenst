@@ -8,18 +8,21 @@
         <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
             <div class="ml-4 border-gray-200">
                 <form action="{{ url("/material/recommend") }}" method="get">
-                    <label>學習標地：</label>
-                    <select name="tag">
-                        <option value="0" {{$selected == 0?'selected':''}}>All</option>
-                        @foreach($tags as $tag)
-                            <option value="{{$tag['id']}}" {{$selected == $tag['id']?'selected':''}}>
-                                {{$tag['name']}}
-                            </option>
-                        @endforeach
-                    </select>
-                    <button type="submit" class="btn btn-primary">
-                        Search
-                    </button>
+                    <div class="m-2 ">
+                        <label class="d-inline">學習標地：</label>
+                        <select class="form-select w-25 p-3 d-inline">
+                            <option value="0" {{$selected == 0?'selected':''}}>All</option>
+                            @foreach($tags as $tag)
+                                <option value="{{$tag['id']}}" {{$selected == $tag['id']?'selected':''}}>
+                                    {{$tag['name']}}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        <button type="submit" class="btn btn-primary btn-lg d-inline ">
+                            Search
+                        </button>
+                    </div>
                 </form>
             </div>
 
