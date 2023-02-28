@@ -39,10 +39,14 @@ class MaterialController extends Controller
      * 教材列表
      *
      * @param Request $request
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function list(Request $request): View
+    public function list(Request $request): View|RedirectResponse
     {
+        if (!isAdminer()) {
+            return Redirect::to("/");
+        }
+
         return view('materials', [
             'materials' => $this->materialServ->list()
         ]);
@@ -92,10 +96,14 @@ class MaterialController extends Controller
     /**
      * 建立教材(靜態頁面)
      *
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function new(): View
+    public function new(): View|RedirectResponse
     {
+        if (!isAdminer()) {
+            return Redirect::to("/");
+        }
+
         return view('materialCreate', [
             'tags' => $this->tagServ->all()
         ]);
@@ -120,8 +128,14 @@ class MaterialController extends Controller
         return Redirect::to("/material/{$data['id']}");
     }
 
-    public function recommend(Request $request): View
+    public function recommend(Request $request): View|RedirectResponse
     {
+        $username = Auth::user()->username;
+        $styles = $this->lseServ->getUserStyle($username);
+        if (count($styles) == 0) {
+            return Redirect::to('/lse');
+        }
+
         $styles = $this->lseServ->getUserStyle(Auth::user()->username);
         $style = array_search(12, $styles);
         $style = str_replace('_score', '', $style);

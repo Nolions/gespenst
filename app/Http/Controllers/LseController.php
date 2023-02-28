@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Services\Lse;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class LseController extends BaseController
 {
@@ -24,10 +26,16 @@ class LseController extends BaseController
     /**
      * 取得LSE問卷
      *
-     * @return View
+     * @return RedirectResponse|View
      */
-    public function lse(): View
+    public function lse(): RedirectResponse|View
     {
+        $username = Auth::user()->username;
+        $scores = $this->lseServ->getUserStyle($username);
+        if (!empty($scores)) {
+            return Redirect::to('/style');
+        }
+
         return view('lse', ['questions' => $this->lseServ->questions()]);
     }
 
@@ -35,9 +43,9 @@ class LseController extends BaseController
      * 填寫問卷
      *
      * @param Request $request
-     * @return View
+     * @return RedirectResponse
      */
-    public function reply(Request $request): View
+    public function reply(Request $request): RedirectResponse
     {
         $username = Auth::user()->username;
 
@@ -47,10 +55,10 @@ class LseController extends BaseController
             $answers = $request->post();
             unset($answers['_token'], $answers['username']);
 
-            $scores = $this->lseServ->reply($username, $answers);
+            $this->lseServ->reply($username, $answers);
         }
 
-        return view('kolbStyleResult', ['kolbStyleScores' => $scores]);
+        return Redirect::to('/style');
     }
 
     /**
@@ -59,13 +67,12 @@ class LseController extends BaseController
      * @param Request $request
      * @return View|Redirector
      */
-    public function style(Request $request): View|Redirector
+    public function style(Request $request): View|RedirectResponse
     {
         $username = Auth::user()->username;
         $styles = $this->lseServ->getUserStyle($username);
-
         if (count($styles) == 0) {
-            return redirect('/lse');
+            return Redirect::to('/lse');
         }
 
         return view('kolbStyleResult', [
