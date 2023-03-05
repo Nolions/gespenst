@@ -31,6 +31,12 @@ class AuthController extends Controller
      */
     public function login(Request $request): RedirectResponse
     {
+        $username = $request->input('username', '');
+
+        if ($request->input('username') == '') {
+            return Redirect::to('/login');
+        }
+
         $user = $this->userServ->findByUsername($request->input('username'));
         if (is_null($user)) {
             // 註冊

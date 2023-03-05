@@ -13,11 +13,14 @@
                         @include('lse_stage', ['title' => '第四部分：主動的實驗', 'filterType'=> 4,'questions' => $questions])
                     </div>
                 </div>
-                <div class="mb-2">
-                    <button type="submit" class="btn btn-primary ">
+                <div class="m-2">
+                    <button type="submit" class="btn btn-primary btn-lg">
                         <i class="bi bi-book"></i>
                         提交
                     </button>
+                    <div class="m-2">
+                        <a class="btn btn-danger btn-lg" href="{{url("/")}}" role="button">回首頁</a>
+                    </div>
                 </div>
             </form>
         </div>

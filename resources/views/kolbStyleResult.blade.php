@@ -26,6 +26,9 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="m-2">
+                <a class="btn btn-danger btn-lg" href="{{url("/")}}" role="button">回首頁</a>
+            </div>
         </div>
 
         <div class="mt-8 mb-2 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
@@ -67,7 +70,7 @@
                 };
                 const myChart = new Chart(ctx, config);
             </script>
-
         </div>
+
     </div>
 @endsection

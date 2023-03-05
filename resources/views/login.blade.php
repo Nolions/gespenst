@@ -20,7 +20,6 @@
                             <div>
                                 <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
                             </div>
-
                         </div>
                     </form>
                     <footer class="bg-light text-center text-lg-start" style="border-bottom-right-radius: 1rem;border-bottom-left-radius: 1rem;">

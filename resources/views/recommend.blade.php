@@ -69,6 +69,10 @@
                 @endforeach
                 </tbody>
             </table>
+            <div class="m-2">
+                <i class="fa-home"></i>
+                <a class="btn btn-danger btn" href="{{url("/")}}" role="button">回首頁</a>
+            </div>
         </div>
     </div>
 @endsection
