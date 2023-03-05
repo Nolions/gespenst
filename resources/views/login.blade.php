@@ -23,8 +23,20 @@
 
                         </div>
                     </form>
+                    <footer class="bg-light text-center text-lg-start" style="border-bottom-right-radius: 1rem;border-bottom-left-radius: 1rem;">
+                        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                            <div>
+                                2022 Copyright 南台科技大學 資管系 智慧型程式學習系統
+                            </div>
+                            <div>
+                                由教育部111大專校院教師教學實踐研究計畫贊助
+                            </div>
+                        </div>
+                    </footer>
                 </div>
+
             </div>
         </div>
+
     </div>
 @endsection
