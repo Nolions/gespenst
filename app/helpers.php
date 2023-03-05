@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 if (!function_exists('lse')) {
     function lse()
     {
-        return app(LSE::class);
+        return app(lse::class);
     }
 }
 

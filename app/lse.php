@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Support\Facades\File;
 
-class LSE
+class lse
 {
     /**
      * @var array
