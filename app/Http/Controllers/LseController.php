@@ -64,10 +64,9 @@ class LseController extends BaseController
     /**
      * 取得使用者學習風格數據
      *
-     * @param Request $request
      * @return View|Redirector
      */
-    public function style(Request $request): View|RedirectResponse
+    public function style(): View|RedirectResponse
     {
         $username = Auth::user()->username;
         $styles = $this->lseServ->getUserStyle($username);
@@ -77,6 +76,22 @@ class LseController extends BaseController
 
         return view('kolbStyleResult', [
             'styles' => $this->lseServ->getUserStyle($username)
+        ]);
+    }
+
+    /**
+     * 所有使用的學習風格
+     *
+     * @return View|RedirectResponse
+     */
+    public function users(): View|RedirectResponse
+    {
+        if (!isAdminer()) {
+            return Redirect::to("/");
+        }
+
+        return view('users', [
+            'users' => $this->lseServ->allUsers()
         ]);
     }
 }

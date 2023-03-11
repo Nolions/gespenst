@@ -96,11 +96,36 @@ class Lse
      */
     public function getUserStyle(string $userId): array
     {
-        $styles = $this->kolbStyleRepo->getStyleByUser($userId);
-        if (is_null($styles)) {
+        $style = $this->kolbStyleRepo->getStyleByUser($userId);
+        if (is_null($style)) {
             return [];
         }
-        return $styles->toArray();
+        return $style->toArray();
+    }
+
+    /**
+     * 列出管理者以外學習者學習風格
+     *
+     * @return array
+     */
+    public function allUsers(): array
+    {
+        return collect($this->kolbStyleRepo->getAll())->map(function ($scores) {
+            $styles = [
+                'ce' => $scores->ce_score,
+                'ro' => $scores->ro_score,
+                'ac' => $scores->ac_score,
+                'ae' => $scores->ae_score,
+            ];
+
+            $style = array_search(max($styles), $styles);
+            $data = $scores->toArray();
+            $data['style'] = getStyleName($style);
+
+            return $data;
+        })->filter(function ($item) {
+            return $item['user_id'] != 'administrator';
+        })->toArray();
     }
 
     /**

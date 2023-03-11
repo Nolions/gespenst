@@ -50,7 +50,12 @@ Route::group(['middleware' => ['auth']], function () {
     // 使用者學習風格頁面
     Route::get('/style', [
         LseController::class, 'style'
-    ])->middleware('auth');
+    ]);
+
+    // 所有使用的學習風格
+    Route::get('users', [
+       LseController::class, 'users'
+    ]);
 
     Route::group(['prefix' => '/material',], function () {
         // 教材列表頁面
@@ -82,6 +87,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/{id}', [
             MaterialController::class, 'edit'
         ]);
+
+
     });
 });
 

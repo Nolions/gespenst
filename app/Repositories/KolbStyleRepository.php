@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\KolbStyle;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class KolbStyleRepository
@@ -29,5 +30,12 @@ class KolbStyleRepository
             ->select('ce_score', 'ro_score', 'ac_score', 'ae_score')
             ->where('user_id', $userId)
             ->first();
+    }
+
+    public function getAll(): Collection
+    {
+        return $this->model->newQuery()
+            ->select('user_id', 'ce_score', 'ro_score', 'ac_score', 'ae_score')
+            ->get();
     }
 }
