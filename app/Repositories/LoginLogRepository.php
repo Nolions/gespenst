@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\LoginLog;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class LoginLogRepository
 {
@@ -33,14 +33,14 @@ class LoginLogRepository
     /**
      * 取得管理者之外的登入紀錄
      *
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
-    public function usersLoginRecord(): Collection
+    public function usersLoginRecord(): \Illuminate\Support\Collection
     {
         return $this->repo->newQuery()
-            ->select('username', 'create_at')
+            ->select('username', DB::raw('MAX(`create_at`) as create_at'))
+            ->groupBy('username')
             ->whereNotIn('username', ['administrator'])
-            ->orderBy("create_at", "DESC")
             ->get();
     }
 }

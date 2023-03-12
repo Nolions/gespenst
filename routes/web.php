@@ -53,7 +53,11 @@ Route::group(['middleware' => ['auth']], function () {
         LseController::class, 'style'
     ]);
 
-    Route::get('/record/user', [
+    Route::get('/record/users', [
+        LogController::class, 'usersLoginRecord'
+    ]);
+
+    Route::get('/record/{username?}', [
         LogController::class, 'userLoginRecord'
     ]);
 

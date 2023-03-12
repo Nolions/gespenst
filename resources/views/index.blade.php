@@ -61,6 +61,35 @@
                     </div>
                 </div>
 
+                <div class="p-6 border-t border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center">
+                        <i class="bi bi-book" style="font-size: 2rem; "></i>
+                        <div class="ml-4 text-lg leading-7 font-semibold">
+                            <a href="{{url("/record")}}" class="underline text-gray-900">登入紀錄</a>
+                        </div>
+                    </div>
+
+                    <div class="ml-12">
+                        <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t md:border-l">
+                    <div class="flex items-center">
+                        <i class="bi bi-person-vcard" style="font-size: 2rem; "></i>
+                        <div class="ml-4 text-lg leading-7 font-semibold">
+                            <a href="{{url("/record/users")}}" class="underline text-gray-900">所有使用者登入紀錄</a>
+                        </div>
+                    </div>
+
+                    <div class="ml-12">
+                        <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
                     <div class="flex items-center">
                         <i class="bi bi-power" style="font-size: 2rem; "></i>

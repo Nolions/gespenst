@@ -21,26 +21,37 @@ class LogController extends BaseController
     /**
      * 取得使用者登入紀錄
      *
+     * @param string|null $username
      * @return View
      */
-    public function userLoginRecord():View
+    public function userLoginRecord(?string $username = null): View
     {
-        $username = Auth::user()->username;
+        $allowBack = true;
+        if ($username==null) {
+            $username = Auth::user()->username;
+            $allowBack = false;
+        }
 
         return view('loginRecord', [
-            'records' => $this->logServ->userLoginRecord($username)
+            'records' => $this->logServ->userLoginRecord($username),
+            'username' => $username,
+            'allowBack' =>$allowBack,
         ]);
     }
 
     /**
      * 所有使用者的登入紀錄
      *
-     * @return RedirectResponse|void
+     * @return RedirectResponse|View
      */
-    public function usersLoginRecord()
+    public function usersLoginRecord(): View|RedirectResponse
     {
         if (!isAdminer()) {
             return Redirect::to("/");
         }
+
+        return view('usersLoginRecord', [
+            'records' => $this->logServ->usersLoginRecord()
+        ]);
     }
 }
