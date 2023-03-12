@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Log;
 use App\Services\Lse;
 use App\Services\User;
 use Illuminate\Http\RedirectResponse;
@@ -16,9 +17,15 @@ class AuthController extends Controller
      */
     private User $userServ;
 
-    public function __construct(User $userServ)
+    /**
+     * @var Log
+     */
+    private Log $logServ;
+
+    public function __construct(User $userServ, Log $logServ)
     {
         $this->userServ = $userServ;
+        $this->logServ = $logServ;
     }
 
     /**
@@ -45,6 +52,8 @@ class AuthController extends Controller
 
         // 登入
         Auth::login($user);
+        $this->logServ->loginRecord($user->username);
+
         return Redirect::to('/');
     }
 

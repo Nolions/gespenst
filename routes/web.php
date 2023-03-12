@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\LseController;
 use App\Http\Controllers\MaterialController;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,10 @@ Route::group(['middleware' => ['auth']], function () {
     // 使用者學習風格頁面
     Route::get('/style', [
         LseController::class, 'style'
+    ]);
+
+    Route::get('/record/user', [
+        LogController::class, 'userLoginRecord'
     ]);
 
     // 所有使用的學習風格

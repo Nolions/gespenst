@@ -32,6 +32,11 @@ class TagRepository
             ->first();
     }
 
+    /**
+     * 取得所有標籤
+     *
+     * @return Collection
+     */
     public function all(): Collection
     {
         return $this->model->newQuery()
