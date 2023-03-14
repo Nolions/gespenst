@@ -38,12 +38,12 @@ Route::group(['middleware' => ['auth']], function () {
         AuthController::class, 'logout'
     ])->name('logout');
 
-    // Kolb學習風格問券 頁面
+    // Kolb學習風格問卷 頁面
     Route::get('/lse', [
         LseController::class, 'lse'
     ]);
 
-    // 填寫學習風格問券
+    // 填寫學習風格問卷
     Route::post('/reply', [
         LseController::class, 'reply'
     ]);

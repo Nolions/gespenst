@@ -74,7 +74,7 @@ class lse
     }
 
     /**
-     * 問券題目所屬面向
+     * 問卷題目所屬面向
      *
      * @param int $questionId
      * @return array

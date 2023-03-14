@@ -20,7 +20,7 @@ class LseController extends BaseController
     }
 
     /**
-     * lse問券
+     * lse問卷
      *
      * @param Lse $lseServ
      * @return JsonResponse
@@ -33,7 +33,7 @@ class LseController extends BaseController
     }
 
     /**
-     * 填寫問券
+     * 填寫問卷
      *
      * @param Request $request
      * @return JsonResponse

@@ -21,7 +21,7 @@ class Lse
     }
 
     /**
-     * 取得lse問券
+     * 取得lse問卷
      *
      * @return array
      */
@@ -31,7 +31,7 @@ class Lse
     }
 
     /**
-     * 填寫問券&學習風格分析
+     * 填寫問卷&學習風格分析
      *
      * @param string $userId
      * @param array $answers
