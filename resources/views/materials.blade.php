@@ -6,9 +6,9 @@
         </div>
 
         <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-
-            <a class="btn btn-primary" href="{{url("/material")}}" role="button">建立教材</a>
-
+            <div class="m-2">
+                <a class="btn btn-primary" href="{{url("/material")}}" role="button">建立教材</a>
+            </div>
             <table class="table">
                 <thead>
                 <tr>
@@ -53,6 +53,12 @@
                 @endforeach
                 </tbody>
             </table>
+            <div class="m-2 ">
+                <div class="m-2 d-inline">
+                    <i class="fa-home"></i>
+                    <a class="btn btn-danger btn" href="{{url("/")}}" role="button">回首頁</a>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
