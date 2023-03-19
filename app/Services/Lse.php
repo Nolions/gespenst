@@ -39,10 +39,10 @@ class Lse
      */
     public function reply(string $userId, array $answers): array
     {
-        $scoreCE = 0; // 具體的經驗
-        $scoreRO = 0; // 省思的觀察
-        $scoreAC = 0; // 抽象的概念
-        $scoreAE = 0; // 主動的實驗
+        $scoreCE = 0; // 分散者
+        $scoreRO = 0; // 同化者
+        $scoreAC = 0; // 收斂者
+        $scoreAE = 0; // 調適者
 
         DB::beginTransaction();
         foreach ($answers as $key => $value) {

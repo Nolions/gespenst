@@ -11,10 +11,10 @@
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">具體的經驗</th>
-                    <th scope="col">省思的觀察</th>
-                    <th scope="col">抽象的概念</th>
-                    <th scope="col">主動的實驗</th>
+                    <th scope="col">分散者</th>
+                    <th scope="col">同化者</th>
+                    <th scope="col">收斂者</th>
+                    <th scope="col">調適者</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,10 +37,10 @@
                 const ctx = document.getElementById('kolb_learn_style_radar');
                 const data = {
                     labels: [
-                        '具體的經驗',
-                        '省思的觀察',
-                        '抽象的概念',
-                        '主動的實驗',
+                        '分散者',
+                        '同化者',
+                        '收斂者',
+                        '調適者',
                     ],
                     datasets: [{
                         label: 'Kolb學習風格指數',

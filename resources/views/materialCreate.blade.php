@@ -33,19 +33,19 @@
                     <div class="my-3">
                         <div class="form-check">
                             <input id="ce" name="styles[]" value="ce" type="checkbox" class="form-check-input">
-                            <label class="form-check-label" for="ce">具體的經驗</label>
+                            <label class="form-check-label" for="ce">分散者</label>
                         </div>
                         <div class="form-check">
                             <input id="ro" name="styles[]" value="ro" type="checkbox" class="form-check-input">
-                            <label class="form-check-label" for="ro">省思的觀察</label>
+                            <label class="form-check-label" for="ro">同化者</label>
                         </div>
                         <div class="form-check">
                             <input id="ac" name="styles[]" value="ac" type="checkbox" class="form-check-input">
-                            <label class="form-check-label" for="ac">抽象的概念</label>
+                            <label class="form-check-label" for="ac">收斂者</label>
                         </div>
                         <div class="form-check">
                             <input id="ae" name="styles[]" value="ae" type="checkbox" class="form-check-input">
-                            <label class="form-check-label" for="ae">主動的實驗</label>
+                            <label class="form-check-label" for="ae">調適者</label>
                         </div>
                     </div>
 

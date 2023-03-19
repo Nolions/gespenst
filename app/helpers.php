@@ -20,16 +20,16 @@ if (!function_exists('getStyleName')) {
         $name = "";
         switch ($style) {
             case 'ce':
-                $name = "具體的經驗";
+                $name = "分散者";
                 break;
             case 'ro':
-                $name = "省思的觀察";
+                $name = "同化者";
                 break;
             case 'ac':
-                $name = "抽象的概念";
+                $name = "收斂者";
                 break;
             case 'ae':
-                $name = "主動的實驗";
+                $name = "調適者";
                 break;
         }
 
