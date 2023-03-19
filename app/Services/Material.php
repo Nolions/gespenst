@@ -199,6 +199,32 @@ class Material
     }
 
     /**
+     * 刪除教材
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        $model = $this->materialRepo->get($id);
+        if ($model == null) {
+            return false;
+        }
+
+        try {
+            DB::transaction(function () use($model, $id) {
+                $this->materialTagRepo->removeByMaterialId($id);
+                $this->materialStyleRepo->removeByMaterialId($id);
+                $model->delete();
+            });
+        } catch (Exception $e) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    /**
      * 隨機取得教材
      *
      * @param int|null $tagId

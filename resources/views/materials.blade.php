@@ -19,6 +19,7 @@
                     <th scope="col">標籤</th>
                     <th scope="col">教材連結</th>
                     <th scope="col">編輯</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,6 +50,13 @@
                         </td>
                         <td><a href="{{$material['resource_url']}}" target="_blank">連結</a></td>
                         <td><a href="./{{$material['id']}}">更多</a></td>
+                        <td>
+                            <form action="{{ url("/material/{$material['id']}/delete") }}" method="post">
+                                <button type="submit" class="btn btn-info d-inline ">
+                                    刪除
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

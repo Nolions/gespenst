@@ -128,6 +128,19 @@ class MaterialController extends Controller
         return Redirect::to("/material/{$data['id']}");
     }
 
+    /**
+     * 刪除教材
+     *
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function delete(int $id): RedirectResponse
+    {
+        $this->materialServ->delete($id);
+        
+        return Redirect::to("/material/list");
+    }
+
     public function recommend(Request $request): View|RedirectResponse
     {
         $username = Auth::user()->username;

@@ -97,7 +97,9 @@ Route::group(['middleware' => ['auth']], function () {
             MaterialController::class, 'edit'
         ]);
 
-
+        Route::post('/{id}/delete',[
+            MaterialController::class, 'delete'
+        ]);
     });
 });
 
