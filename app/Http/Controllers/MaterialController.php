@@ -137,10 +137,10 @@ class MaterialController extends Controller
         }
 
         $styles = $this->lseServ->getUserStyle(Auth::user()->username);
-        $style = array_search(12, $styles);
-        $style = str_replace('_score', '', $style);
+        $style = str_replace('_score', '', array_search(max($styles), $styles));
 
-        $tag = $request->input('tag');
+        $tag = $request->input('tag', 0);
+
         return view('recommend', [
             'selected' => $tag,
             'tags' => $this->tagServ->all(),

@@ -10,7 +10,7 @@
                 <form action="{{ url("/material/recommend") }}" method="get">
                     <div class="m-2 ">
                         <label class="d-inline">學習標地：</label>
-                        <select class="form-select w-25 p-3 d-inline">
+                        <select name="tag" class="form-select w-25 p-3 d-inline">
                             <option value="0" {{$selected == 0?'selected':''}}>All</option>
                             @foreach($tags as $tag)
                                 <option value="{{$tag['id']}}" {{$selected == $tag['id']?'selected':''}}>
@@ -25,7 +25,6 @@
                     </div>
                 </form>
             </div>
-
 
             <table class="table">
                 <thead>
