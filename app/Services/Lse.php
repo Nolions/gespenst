@@ -106,11 +106,12 @@ class Lse
     /**
      * 列出管理者以外學習者學習風格
      *
+     * @param string|null $style
      * @return array
      */
-    public function allUsers(): array
+    public function allUsers(?string $style = ""): array
     {
-        return collect($this->kolbStyleRepo->getAll())->map(function ($scores) {
+        return collect($this->kolbStyleRepo->getAll($style))->map(function ($scores) {
             $styles = [
                 'ce' => $scores->ce_score,
                 'ro' => $scores->ro_score,

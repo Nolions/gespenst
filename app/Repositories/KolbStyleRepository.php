@@ -32,10 +32,34 @@ class KolbStyleRepository
             ->first();
     }
 
-    public function getAll(): Collection
+    public function getAll(?string $style = ""): Collection
     {
-        return $this->model->newQuery()
-            ->select('user_id', 'ce_score', 'ro_score', 'ac_score', 'ae_score')
+        $builder = $this->model->newQuery();
+
+        switch ($style) {
+            case "ce":
+                $builder->whereColumn("ce_score", ">", "ro_score")
+                    ->whereColumn("ce_score", ">", "ac_score")
+                    ->whereColumn("ce_score", ">", "ae_score");
+                break;
+            case "ro":
+                $builder->whereColumn("ro_score", ">", "ce_score")
+                    ->whereColumn("ro_score", ">", "ac_score")
+                    ->whereColumn("ro_score", ">", "ae_score");
+                break;
+            case "ac":
+                $builder->whereColumn("ac_score", ">", "ro_score")
+                    ->whereColumn("ac_score", ">", "ce_score")
+                    ->whereColumn("ac_score", ">", "ae_score");
+                break;
+            case "ae":
+                $builder->whereColumn("ae_score", ">", "ro_score")
+                    ->whereColumn("ae_score", ">", "ac_score")
+                    ->whereColumn("ae_score", ">", "ce_score");
+                break;
+        }
+
+        return $builder->select('user_id', 'ce_score', 'ro_score', 'ac_score', 'ae_score')
             ->get();
     }
 }

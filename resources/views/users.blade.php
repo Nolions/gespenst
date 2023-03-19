@@ -6,6 +6,26 @@
         </div>
 
         <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+            <div class="ml-4 border-gray-200">
+                <form action="{{ url("/users") }}" method="get">
+                    <div class="m-2 ">
+                        <label class="d-inline">學習風格：</label>
+                        <select name="style" class="form-select w-25 p-3 d-inline">
+                            <option value="" {{$selected == ''?'selected':''}}>All</option>
+                            <option value="ce" {{$selected == 'ce'?'selected':''}}>分散者</option>
+                            <option value="ro" {{$selected == 'ro'?'selected':''}}>同化者</option>
+                            <option value="ac" {{$selected == 'ac'?'selected':''}}>收斂者</option>
+                            <option value="ae" {{$selected == 'ae'?'selected':''}}>調適者</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary btn-lg d-inline ">
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+
             <table class="table">
                 <thead>
                 <tr>

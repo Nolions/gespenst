@@ -82,16 +82,19 @@ class LseController extends BaseController
     /**
      * 所有使用的學習風格
      *
+     * @param Request $request
      * @return View|RedirectResponse
      */
-    public function users(): View|RedirectResponse
+    public function users(Request $request): View|RedirectResponse
     {
         if (!isAdminer()) {
             return Redirect::to("/");
         }
 
+        $style = $request->input('style', "");
         return view('users', [
-            'users' => $this->lseServ->allUsers()
+            'users' => $this->lseServ->allUsers($style),
+            'selected' =>$style
         ]);
     }
 }
