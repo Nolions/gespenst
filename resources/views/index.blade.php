@@ -7,7 +7,7 @@
                     <div class="flex items-center">
                         <i class="bi bi-pencil" style="font-size: 2rem; "></i>
                         <div class="ml-4 text-lg  leading-7 font-semibold">
-                            <a href="{{url("/lse")}}" class="underline text-gray-900">填寫LSE問券</a>
+                            <a href="{{url("/lse")}}" class="underline text-gray-900">填寫LSE問卷</a>
                         </div>
                     </div>
 
