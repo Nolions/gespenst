@@ -65,8 +65,12 @@
 
                     <hr class="my-4">
 
-                    <button class="btn btn-primary btn-lg" type="submit">Save</button>
-                    <a class="btn btn-danger btn-lg" href="{{url("/material/list")}}" role="button">Cancel</a>
+                    <button class="btn btn-primary" type="submit"><i class="fa-save"></i>Save</button>
+                    <a class="btn btn-danger" href="{{url("/material/list")}}" role="button">Cancel</a>
+                    <div class="m-2 d-inline">
+                        <i class="fa-backward"></i>
+                        <a class="btn btn-dark" href="<?php echo e(url("/material/list")); ?>" role="button">回上一頁</a>
+                    </div>
                 </form>
             </div>
         </div>
