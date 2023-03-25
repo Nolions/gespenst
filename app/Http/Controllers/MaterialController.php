@@ -90,7 +90,7 @@ class MaterialController extends Controller
     {
         $this->materialServ->edit($id, $request->all());
 
-        return Redirect::to("/material/{$id}");
+        return Redirect::to("/material/list");
     }
 
     /**
@@ -125,7 +125,7 @@ class MaterialController extends Controller
             $request->input('resourceUrl'),
         );
 
-        return Redirect::to("/material/{$data['id']}");
+        return Redirect::to("/material/list");
     }
 
     /**
@@ -137,7 +137,7 @@ class MaterialController extends Controller
     public function delete(int $id): RedirectResponse
     {
         $this->materialServ->delete($id);
-        
+
         return Redirect::to("/material/list");
     }
 
