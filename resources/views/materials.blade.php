@@ -49,7 +49,7 @@
                             @endfor
                         </td>
                         <td><a href="{{$material['resource_url']}}" target="_blank">連結</a></td>
-                        <td><a href="./{{$material['id']}}">更多</a></td>
+                        <td><a href="./{{$material['id']}}">編輯</a></td>
                         <td>
                             <form action="{{ url("/material/{$material['id']}/delete") }}" method="post">
                                 <button type="submit" class="btn btn-info d-inline ">
