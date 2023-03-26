@@ -23,6 +23,10 @@
                         </button>
                     </div>
                 </form>
+
+                <div class="m-2 ">
+                    <label class="d-inline">筆數：{{count($users)}}</label>
+                </div>
             </div>
 
             <table class="table">
