@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class LoginLogRepository
 {
-    private LoginLog $repo;
+    private LoginLog $model;
 
-    public function __construct(LoginLog $repo)
+    public function __construct(LoginLog $model)
     {
-        $this->repo = $repo;
+        $this->model = $model;
     }
 
     /**
@@ -23,7 +23,7 @@ class LoginLogRepository
      */
     public function userRecords(string $username): Collection
     {
-        return $this->repo->newQuery()
+        return $this->model->newQuery()
             ->select('username', 'create_at')
             ->where('username', $username)
             ->orderBy("create_at", "DESC")
@@ -33,11 +33,43 @@ class LoginLogRepository
     /**
      * 取得管理者之外的登入紀錄
      *
-     * @return \Illuminate\Support\Collection
+     * @param string|null $style
+     * @return Collection
      */
-    public function usersLoginRecord(): \Illuminate\Support\Collection
+    public function usersLoginRecord(?string $style = ""): Collection
     {
-        return $this->repo->newQuery()
+        $builder = $this->model->newQuery();
+
+        if ($style != null && $style != '') {
+            $builder->whereIn('username', function($query) use($style){
+                switch ($style) {
+                    case "ce":
+                        $query->whereColumn("ce_score", ">", "ro_score")
+                            ->whereColumn("ce_score", ">", "ac_score")
+                            ->whereColumn("ce_score", ">", "ae_score");
+                        break;
+                    case "ro":
+                        $query->whereColumn("ro_score", ">", "ce_score")
+                            ->whereColumn("ro_score", ">", "ac_score")
+                            ->whereColumn("ro_score", ">", "ae_score");
+                        break;
+                    case "ac":
+                        $query->whereColumn("ac_score", ">", "ro_score")
+                            ->whereColumn("ac_score", ">", "ce_score")
+                            ->whereColumn("ac_score", ">", "ae_score");
+                        break;
+                    case "ae":
+                        $query->whereColumn("ae_score", ">", "ro_score")
+                            ->whereColumn("ae_score", ">", "ac_score")
+                            ->whereColumn("ae_score", ">", "ce_score");
+                        break;
+                }
+
+                $query->select('username')->from('kolb_styles');
+            });
+        }
+
+        return $builder
             ->select('username', DB::raw('MAX(`create_at`) as create_at'))
             ->groupBy('username')
             ->whereNotIn('username', ['administrator'])

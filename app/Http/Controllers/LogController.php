@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\Log;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -42,16 +43,20 @@ class LogController extends BaseController
     /**
      * 所有使用者的登入紀錄
      *
+     * @param Request $request
      * @return RedirectResponse|View
      */
-    public function usersLoginRecord(): View|RedirectResponse
+    public function usersLoginRecord(Request $request): View|RedirectResponse
     {
         if (!isAdminer()) {
             return Redirect::to("/");
         }
 
+        $style = $request->input('style', "");
+
         return view('usersLoginRecord', [
-            'records' => $this->logServ->usersLoginRecord()
+            'records' => $this->logServ->usersLoginRecord($style),
+            'selected' =>$style
         ]);
     }
 }
