@@ -7,6 +7,9 @@ use App\Repositories\LoginLogRepository;
 
 class Log
 {
+    /**
+     * @var LoginLogRepository
+     */
     private LoginLogRepository $loginLogRepo;
 
     public function __construct(LoginLogRepository $loginLogRepo)
@@ -14,6 +17,12 @@ class Log
         $this->loginLogRepo = $loginLogRepo;
     }
 
+    /**
+     *  建立登入紀錄
+     *
+     * @param string $username
+     * @return bool
+     */
     public function loginRecord(string $username): bool
     {
         $model = new LoginLog();

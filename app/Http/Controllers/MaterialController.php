@@ -38,10 +38,9 @@ class MaterialController extends Controller
     /**
      * 教材列表
      *
-     * @param Request $request
      * @return View|RedirectResponse
      */
-    public function list(Request $request): View|RedirectResponse
+    public function list(): View|RedirectResponse
     {
         if (!isAdminer()) {
             return Redirect::to("/");
@@ -61,16 +60,19 @@ class MaterialController extends Controller
     public function get(int $id): View
     {
         $material = $this->materialServ->get($id);
+
         $tags = [];
         foreach ($material['tags'] as $tag) {
             $tags[] = $tag['id'];
         }
+
         $material['tags'] = $tags;
 
         $styles = [];
         foreach ($material['styles'] as $style) {
             $styles[] = $style['kolb_style'];
         }
+
         $material['styles'] = $styles;
 
         return view('material', [
@@ -117,7 +119,7 @@ class MaterialController extends Controller
      */
     public function create(Request $request): RedirectResponse
     {
-        $data = $this->materialServ->create(
+        $this->materialServ->create(
             $request->input('title'),
             $request->input('styles'),
             $request->input('tags'),
