@@ -80,7 +80,7 @@ class LseController extends BaseController
     }
 
     /**
-     * 所有使用的學習風格
+     * 所有使用者的學習風格
      *
      * @param Request $request
      * @return View|RedirectResponse
@@ -92,12 +92,15 @@ class LseController extends BaseController
         }
 
         $style = $request->input('style', "");
-        $data = $this->lseServ->allUsers($style);
+        $username = $request->input('username', "");
+
+        $data = $this->lseServ->allUsers($style, $username);
 
         return view('users', [
             'users' => $data['users'],
             'paginate' => $data['paginate'],
-            'selected' =>$style
+            'selected' =>$style,
+            'username' => $username,
         ]);
     }
 }

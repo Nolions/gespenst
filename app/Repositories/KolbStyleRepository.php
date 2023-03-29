@@ -33,9 +33,20 @@ class KolbStyleRepository
             ->first();
     }
 
-    public function getAll(?string $style = ""): LengthAwarePaginator
+    /**
+     * 取得所有使用者的學習風格&kolb問卷結果
+     *
+     * @param string|null $style
+     * @param string|null $username
+     * @return LengthAwarePaginator
+     */
+    public function getAll(?string $style = "",  ?string $username = ""): LengthAwarePaginator
     {
         $builder = $this->model->newQuery();
+
+        if ($username != null && $username != '') {
+            $builder->where('user_id', $username);
+        }
 
         switch ($style) {
             case "ce":
