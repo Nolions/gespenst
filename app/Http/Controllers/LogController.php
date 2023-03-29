@@ -53,10 +53,12 @@ class LogController extends BaseController
         }
 
         $style = $request->input('style', "");
+        $username = $request->input('username', "");
 
         return view('usersLoginRecord', [
-            'records' => $this->logServ->usersLoginRecord($style),
-            'selected' =>$style
+            'records' => $this->logServ->usersLoginRecord($style, $username),
+            'selected' => $style,
+            'username' => $username,
         ]);
     }
 }

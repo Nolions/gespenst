@@ -46,10 +46,11 @@ class Log
      * 取得管理者之外的登入紀錄
      *
      * @param string|null $style
+     * @param string|null $username
      * @return array
      */
-    public function usersLoginRecord(?string $style = ""): array
+    public function usersLoginRecord(?string $style = "", ?string $username = ""): array
     {
-        return $this->loginLogRepo->usersLoginRecord($style)->toArray();
+        return $this->loginLogRepo->usersLoginRecord($style, $username)->toArray();
     }
 }

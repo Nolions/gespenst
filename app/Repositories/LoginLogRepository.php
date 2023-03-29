@@ -34,14 +34,18 @@ class LoginLogRepository
      * 取得管理者之外的登入紀錄
      *
      * @param string|null $style
+     * @param string|null $username
      * @return Collection
      */
-    public function usersLoginRecord(?string $style = ""): Collection
+    public function usersLoginRecord(?string $style = "", ?string $username = ""): Collection
     {
         $builder = $this->model->newQuery();
+        if ($username != null && $username != '') {
+            $builder->where('username', $username);
+        }
 
         if ($style != null && $style != '') {
-            $builder->whereIn('username', function($query) use($style){
+            $builder->whereIn('username', function($query) use($username, $style){
                 switch ($style) {
                     case "ce":
                         $query->whereColumn("ce_score", ">", "ro_score")
@@ -66,8 +70,14 @@ class LoginLogRepository
                 }
 
                 $query->select('username')->from('kolb_styles');
+
+                if ($username != null && $username != '') {
+                    $query->where('username', $username);
+                }
             });
         }
+
+
 
         return $builder
             ->select('username', DB::raw('MAX(`create_at`) as create_at'))

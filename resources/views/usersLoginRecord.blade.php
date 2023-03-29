@@ -7,7 +7,7 @@
 
         <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
             <div class="ml-4 border-gray-200">
-                <form action="{{ url("/users") }}" method="get">
+                <form action="{{ url("/record/users") }}" method="get">
                     <div class="m-2 ">
                         <label class="d-inline">學習風格：</label>
                         <select name="style" class="form-select w-25 p-3 d-inline">
@@ -17,7 +17,8 @@
                             <option value="ac" {{$selected == 'ac'?'selected':''}}>收斂者</option>
                             <option value="ae" {{$selected == 'ae'?'selected':''}}>調適者</option>
                         </select>
-
+                        <label class="d-inline">Username：</label>
+                        <input type="text" class="form-control w-25 p-3 d-inline" placeholder="學號/姓名" name="username" value="{{$username}}">
                         <button type="submit" class="btn btn-primary btn-lg d-inline ">
                             Search
                         </button>
