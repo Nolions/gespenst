@@ -92,8 +92,11 @@ class LseController extends BaseController
         }
 
         $style = $request->input('style', "");
+        $data = $this->lseServ->allUsers($style);
+
         return view('users', [
-            'users' => $this->lseServ->allUsers($style),
+            'users' => $data['users'],
+            'paginate' => $data['paginate'],
             'selected' =>$style
         ]);
     }

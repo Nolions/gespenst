@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\LoginLog;
 use App\Repositories\LoginLogRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class Log
 {
@@ -47,10 +48,10 @@ class Log
      *
      * @param string|null $style
      * @param string|null $username
-     * @return array
+     * @return LengthAwarePaginator
      */
-    public function usersLoginRecord(?string $style = "", ?string $username = ""): array
+    public function usersLoginRecord(?string $style = "", ?string $username = ""): LengthAwarePaginator
     {
-        return $this->loginLogRepo->usersLoginRecord($style, $username)->toArray();
+        return $this->loginLogRepo->usersLoginRecord($style, $username);;
     }
 }

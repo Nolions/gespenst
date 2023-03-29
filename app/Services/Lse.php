@@ -111,7 +111,8 @@ class Lse
      */
     public function allUsers(?string $style = ""): array
     {
-        return collect($this->kolbStyleRepo->getAll($style))->map(function ($scores) {
+        $data = $this->kolbStyleRepo->getAll($style);
+        $items = collect($data->items())->map(function ($scores) {
             $styles = [
                 'ce' => $scores->ce_score,
                 'ro' => $scores->ro_score,
@@ -127,6 +128,10 @@ class Lse
         })->filter(function ($item) {
             return $item['user_id'] != 'administrator';
         })->toArray();
+        return [
+            'users' => $items,
+            'paginate' => $data,
+        ];
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\KolbStyle;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,7 +33,7 @@ class KolbStyleRepository
             ->first();
     }
 
-    public function getAll(?string $style = ""): Collection
+    public function getAll(?string $style = ""): LengthAwarePaginator
     {
         $builder = $this->model->newQuery();
 
@@ -60,6 +61,6 @@ class KolbStyleRepository
         }
 
         return $builder->select('user_id', 'ce_score', 'ro_score', 'ac_score', 'ae_score')
-            ->get();
+            ->paginate(10);
     }
 }

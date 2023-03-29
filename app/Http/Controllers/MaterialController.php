@@ -46,8 +46,10 @@ class MaterialController extends Controller
             return Redirect::to("/");
         }
 
+        $data = $this->materialServ->list();
         return view('materials', [
-            'materials' => $this->materialServ->list()
+            'materials' => $data['data'],
+            'paginator' => $data['paginator'],
         ]);
     }
 
@@ -156,10 +158,13 @@ class MaterialController extends Controller
 
         $tag = $request->input('tag', 0);
 
+        $data = $this->materialServ->randomList($tag, $style);
+
         return view('recommend', [
             'selected' => $tag,
             'tags' => $this->tagServ->all(),
-            'materials' => $this->materialServ->randomList($tag, $style)
+            'materials' => $data['materials'],
+            'paginator' => $data['paginator'],
         ]);
     }
 }

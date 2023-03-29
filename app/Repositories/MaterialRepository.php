@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Material;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -29,9 +30,9 @@ class MaterialRepository
      * INNER JOIN ((SELECT material_id, tag_id, name FROM material_tags INNER JOIN tags ON (material_tags.tag_id = tags.id)) as MTS)
      * ON (MTS.material_id = materials.id)
      *
-     * @return Collection
+     * @return LengthAwarePaginator
      */
-    public function list(): Collection
+    public function list(): LengthAwarePaginator
     {
         return $this->model->newQuery()
             ->select(
@@ -40,7 +41,7 @@ class MaterialRepository
                 'materials.resource_url',
                 'materials.describe',
             )
-            ->get();
+            ->paginate(10);
     }
 
     /**
@@ -67,13 +68,13 @@ class MaterialRepository
         return $this->randomBuilder($tagId, $style)->count();
     }
 
-    public function randomList(int $offset, int $limit, ?int $tagId = 0, ?string $style = null): Collection
+    public function randomList(int $offset, int $limit, ?int $tagId = 0, ?string $style = null): LengthAwarePaginator
     {
         return $this->randomBuilder($tagId, $style)
             ->select('materials.id', 'materials.title', 'materials.resource_url', 'materials.describe')
             ->limit($limit)
             ->offset($offset)
-            ->get();
+            ->paginate(10);
     }
 
     /**

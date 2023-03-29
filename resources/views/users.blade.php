@@ -53,6 +53,9 @@
                 @endforeach
                 </tbody>
             </table>
+            <div class="m-2 ">
+                {{ $paginate->links() }}
+            </div>
             <div class="m-2">
                 <i class="fa-home"></i>
                 <a class="btn btn-danger btn" href="{{url("/")}}" role="button">回首頁</a>

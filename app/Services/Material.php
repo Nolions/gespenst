@@ -9,6 +9,7 @@ use App\Repositories\MaterialRepository;
 use App\Repositories\MaterialStyleRepository;
 use App\Repositories\MaterialTagRepository;
 use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class Material
@@ -118,13 +119,19 @@ class Material
      */
     public function list(): array
     {
-        $data = collect($this->materialRepo->list())->map(function ($material) {
+        $data = $this->materialRepo->list();
+
+        $items = collect($data->items())->map(function ($material) {
             $data = $material->toArray();
             $data['tags'] = $material->tags->toArray();
             $data['styles'] = $material->styles->toArray();
             return $data;
         });
-        return $data->toArray();
+
+        return [
+            'data' => $items,
+            'paginator' => $data,
+        ];
     }
 
     /**
@@ -220,7 +227,7 @@ class Material
         } catch (Exception $e) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -237,13 +244,17 @@ class Material
         $count = $this->materialRepo->randomCount($tagId, $style);
         $offset = rand(0, $count - $limit);
 
-        $data = collect($this->materialRepo->randomList($offset, $limit, $tagId, $style))->map(function ($material) {
+        $data = $this->materialRepo->randomList($offset, $limit, $tagId, $style);
+        $items = collect($data->items())->map(function ($material) {
             $data = $material->toArray();
             $data['tags'] = $material->tags->toArray();
             $data['styles'] = $material->styles->toArray();
             return $data;
-        });
+        })->toArray();
 
-        return $data->toArray();
+        return [
+            'materials' => $items,
+            'paginator' => $data,
+        ];
     }
 }

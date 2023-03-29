@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\LoginLog;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -35,9 +36,9 @@ class LoginLogRepository
      *
      * @param string|null $style
      * @param string|null $username
-     * @return Collection
+     * @return LengthAwarePaginator
      */
-    public function usersLoginRecord(?string $style = "", ?string $username = ""): Collection
+    public function usersLoginRecord(?string $style = "", ?string $username = ""): LengthAwarePaginator
     {
         $builder = $this->model->newQuery();
         if ($username != null && $username != '') {
@@ -77,12 +78,10 @@ class LoginLogRepository
             });
         }
 
-
-
         return $builder
             ->select('username', DB::raw('MAX(`create_at`) as create_at'))
             ->groupBy('username')
             ->whereNotIn('username', ['administrator'])
-            ->get();
+            ->paginate(10);
     }
 }
