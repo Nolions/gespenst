@@ -41,7 +41,7 @@ class MaterialRepository
                 'materials.resource_url',
                 'materials.describe',
             )
-            ->paginate(10);
+            ->paginate(50);
     }
 
     /**
@@ -74,7 +74,7 @@ class MaterialRepository
             ->select('materials.id', 'materials.title', 'materials.resource_url', 'materials.describe')
             ->limit($limit)
             ->offset($offset)
-            ->paginate(10);
+            ->paginate(50);
     }
 
     /**

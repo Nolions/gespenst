@@ -72,6 +72,6 @@ class KolbStyleRepository
         }
 
         return $builder->select('user_id', 'ce_score', 'ro_score', 'ac_score', 'ae_score')
-            ->paginate(10);
+            ->paginate(50);
     }
 }
