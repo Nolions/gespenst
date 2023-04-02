@@ -36,6 +36,7 @@
                     <th>使用者ID</th>
                     <th>日期</th>
                     <th>時間</th>
+                    <th>登入次數</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -45,6 +46,7 @@
                         <td>{{$record['username']}}</td>
                         <td>{{date("Y-m-d", strtotime($record['create_at']))}}</td>
                         <td>{{date("H:i:s", strtotime($record['create_at']))}}</td>
+                        <td>{{$record['count']}}</td>
                         <td><a href='{{$record['username']}}'>更多</a></td>
                     </tr>
                 @endforeach

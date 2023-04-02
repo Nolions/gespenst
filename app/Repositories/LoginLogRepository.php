@@ -79,7 +79,7 @@ class LoginLogRepository
         }
 
         return $builder
-            ->select('username', DB::raw('MAX(`create_at`) as create_at'))
+            ->select('username', DB::raw('MAX(`create_at`) as create_at'), DB::raw('count(create_at) count'))
             ->groupBy('username')
             ->whereNotIn('username', ['administrator'])
             ->paginate(50);
